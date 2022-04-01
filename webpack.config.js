@@ -8,5 +8,11 @@ module.exports = {
     output: {
         filename: '[name].js',
         path: path.resolve('./dist')
+    },
+    module: {
+        rules: [{
+            test: /\.js$/,  // .js 확장자로 끝나는 모든 파일
+            use: [path.resolve('./src/loadertest')]
+        }]
     }
 }
