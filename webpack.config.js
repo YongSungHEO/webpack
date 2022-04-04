@@ -21,7 +21,7 @@ module.exports = {
                 use: ['style-loader', 'css-loader'],    // 배열의 뒤에서부터 읽는다.
             },
             {
-                test: /\.png$/,
+                test: /\.(png|jpg|jpeg)$/,
                 type: 'asset',  // Default로 크기가 8kb 미만인 파일은 inline 모듈로 처리, 그렇지 않으면 resource 모듈로 처리
                 generator: {
                     filename: 'static/[name][hash][ext][query]'
