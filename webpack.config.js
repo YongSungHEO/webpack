@@ -1,5 +1,9 @@
 const path = require('path');
-const MyWebpackPlugin = require('./src/myWebpackPlugin');
+const webpack = require('webpack');
+const childProcess = require('child_process');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'development',
@@ -19,7 +23,10 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader'],    // 배열의 뒤에서부터 읽는다.
+                use: [  // 배열의 뒤에서부터 읽는다.
+                    process.env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
+                    'css-loader'
+                ],
             },
             {
                 test: /\.(png|jpg|jpeg)$/,
@@ -36,6 +43,30 @@ module.exports = {
         ],
     },
     plugins: [
-        new MyWebpackPlugin()
+        new webpack.BannerPlugin({
+            banner: `
+                Build Date: ${new Date().toLocaleDateString()}
+                Commit Version: ${childProcess.execSync('git rev-parse --short HEAD')}
+                Author: ${childProcess.execSync('git config user.name')}
+            `
+        }),
+        new webpack.DefinePlugin({
+            'api.domain': JSON.stringify('http://dev.api.domain.com')
+        }),
+        new HtmlWebpackPlugin({
+            template: 'index.html',
+            templateParameters: {
+                env: process.env.NODE_ENV === 'development' ? '(개발용)' : ''
+            },
+            minify: process.env.NODE_ENV === 'production' ? {
+                collapseWhitespace: true,   // 빈칸 제거
+                removeComments: true,       // 주석 제거
+            } : {}
+        }),
+        new CleanWebpackPlugin(),
+        ...(process.env.NODE_ENV === 'production'
+            ? [new MiniCssExtractPlugin({ filename: '[name].css' })]
+            : []
+        )
     ]
 }
