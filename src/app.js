@@ -7,3 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     console.log('DOMContentLoaded');
 });
+
+// const alert = msg => window.alert(msg);
+new Promise();
