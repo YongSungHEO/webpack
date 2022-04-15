@@ -22,10 +22,11 @@ module.exports = {
                 exclude: [/node_modules/],
             },
             {
-                test: /\.css$/,
+                test: /\.(scss|css)$/,
                 use: [  // 배열의 뒤에서부터 읽는다.
                     process.env.NODE_ENV === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
-                    'css-loader'
+                    'css-loader',
+                    'sass-loader'
                 ],
             },
             {

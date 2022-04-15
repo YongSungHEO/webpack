@@ -1,4 +1,4 @@
-import './app.css';
+import './app.scss';
 import small from './assets/img/small.png';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,4 +9,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 const alert = msg => window.alert(msg);
-new Promise();
+// new Promise();
