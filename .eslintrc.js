@@ -10,5 +10,6 @@ module.exports = {
     },
     'rules': {
         'no-extra-semi': 'error',
+        'no-unexpected-multiline': 'error',
     }
 }

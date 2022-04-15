@@ -4,7 +4,8 @@
   "description": "Webpack",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --progress"
+    "build": "webpack --progress",
+    "lint": "eslint src --fix"
   },
   "repository": {
     "type": "git",
